@@ -2,6 +2,13 @@
 
 const GIPHY_API_KEY = 'MhAodEJIJxQMxW9XqxKjyXfNYdLoOIym';
 
+/** appends gif to DOM in html */
+
+function appendGif(gifURL) {
+  const $gifImage = $(`<img src="${gifURL}"></img>`);
+  $(".gif-area").append($gifImage);
+}
+
 /** async function to grab our gif from api database */
 
 async function grabGif(evt) {
@@ -17,7 +24,9 @@ async function grabGif(evt) {
 
   const data = await response.json();
 
-  console.log('resonse=', response, 'data=', data);
+  let gifURL =  data.data[0].images.original.url;
+
+  appendGif(gifURL);
 }
 
 $('form').on('submit', grabGif);
